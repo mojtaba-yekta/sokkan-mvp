@@ -1,0 +1,32 @@
+buildscript {
+    ext.kotlin_version = "1.4.31"
+    ext.retrofit_version = "2.9.0"
+    ext.coroutines_version = "1.4.3"
+    ext.room_version = "2.3.0"
+    ext.glide_version = "4.12.0"
+    ext.nav_version = "2.3.3"
+    ext.dagger_version = "2.33"
+    ext.recyclerview_version = "1.1.0"
+    ext.lifecycle_version = "2.3.0"
+
+    repositories {
+        google()
+        jcenter()
+    }
+    dependencies {
+        classpath "com.android.tools.build:gradle:4.1.2"
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath "androidx.navigation:navigation-safe-args-gradle-plugin:$nav_version"
+    }
+}
+
+allprojects {
+    repositories {
+        google()
+        jcenter()
+    }
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}
