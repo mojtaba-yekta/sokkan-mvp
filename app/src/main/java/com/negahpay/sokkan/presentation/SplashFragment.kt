@@ -12,7 +12,9 @@ import com.google.android.material.snackbar.Snackbar
 import com.negahpay.sokkan.R
 import com.negahpay.sokkan.databinding.FragmentSplashBinding
 import com.negahpay.sokkan.framework.SplashViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class SplashFragment : Fragment() {
     private val viewModel: SplashViewModel by viewModels()
     private var _binding: FragmentSplashBinding?=null

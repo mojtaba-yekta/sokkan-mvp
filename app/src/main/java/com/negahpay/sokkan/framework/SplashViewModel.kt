@@ -5,11 +5,11 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import com.negahpay.core.data.Setting
 import com.negahpay.core.data.User
-import com.negahpay.core.repository.SettingRepository
-import com.negahpay.core.repository.UserRepository
 import com.negahpay.core.usecases.*
+import com.negahpay.sokkan.BuildConfig
 import com.negahpay.sokkan.framework.di.ApplicationModule
 import com.negahpay.sokkan.framework.di.DaggerViewModelComponent
+import com.negahpay.sokkan.framework.di.NetworkModule
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
@@ -22,6 +22,9 @@ class SplashViewModel(application: Application) : AndroidViewModel(application) 
     @Inject
     lateinit var useCases: UseCases
 
+    @Inject
+    lateinit var serviceApi: ServiceApi
+
     lateinit var currentUser: User
     val hasApiKey = MutableLiveData(false)
     val errorGettingApiKey = MutableLiveData(false)
@@ -30,6 +33,7 @@ class SplashViewModel(application: Application) : AndroidViewModel(application) 
         DaggerViewModelComponent
             .builder()
             .applicationModule(ApplicationModule(application))
+            .networkModule(NetworkModule(BuildConfig.Base_URL))
             .build()
             .inject(this)
 
@@ -42,6 +46,10 @@ class SplashViewModel(application: Application) : AndroidViewModel(application) 
     }
 
     fun receiveApiKey() {
+
+
+
+
         //todo get api key from net
         if (true) {
             saveApiKey("test")

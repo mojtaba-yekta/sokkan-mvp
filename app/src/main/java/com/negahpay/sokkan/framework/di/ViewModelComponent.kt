@@ -6,7 +6,9 @@ import dagger.Component
 @Component(
     modules = [
         RepositoryModule::class,
-        UseCasesModule::class
+        UseCasesModule::class,
+        ApplicationModule::class,
+        NetworkModule::class
     ]
 )
 interface ViewModelComponent {

@@ -10,6 +10,8 @@ buildscript {
     ext.lifecycle_version = "2.3.0"
     ext.moshi_version = "1.11.0"
     ext.multidex_version = "2.0.1"
+    ext.okhttp3_version = "3.12.13"
+    ext.hilt_version = "2.33-beta"
 
     repositories {
         google()
@@ -19,6 +21,7 @@ buildscript {
         classpath "com.android.tools.build:gradle:4.1.2"
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath "androidx.navigation:navigation-safe-args-gradle-plugin:$nav_version"
+        classpath "com.google.dagger:hilt-android-gradle-plugin:$hilt_version"
     }
 }
 

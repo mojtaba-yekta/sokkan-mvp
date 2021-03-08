@@ -14,7 +14,7 @@ import androidx.room.RoomDatabase
 )
 abstract class DatabaseService : RoomDatabase() {
     abstract fun userDao(): UserDao
-    abstract fun settingDao(): SettingDao
+    abstract fun settingDao(): SettingsDao
 
     companion object {
         private const val DATABASE_NAME = "sokkan.db"
