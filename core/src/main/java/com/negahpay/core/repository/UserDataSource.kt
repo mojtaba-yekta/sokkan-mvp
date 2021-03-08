@@ -5,5 +5,5 @@ import com.negahpay.core.data.User
 interface UserDataSource {
     suspend fun add(user: User)
     suspend fun getLoggedIn(): User?
-    suspend fun remove(cellphone: String)
+    suspend fun remove(user: User)
 }

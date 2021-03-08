@@ -1,4 +1,4 @@
-package com.negahpay.core.usecase
+package com.negahpay.core.usecases
 
 import com.negahpay.core.data.User
 import com.negahpay.core.repository.UserRepository
