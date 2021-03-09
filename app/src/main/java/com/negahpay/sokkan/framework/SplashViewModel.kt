@@ -20,25 +20,16 @@ class SplashViewModel @Inject constructor(
     private val netParams: NetParams
 ) : ViewModel() {
     private val TAG = SplashViewModel::class.qualifiedName
+    private lateinit var setting: LiveData<Resource<Setting>>
+    private val resultData:MediatorLiveData<Resource<Setting>> = MediatorLiveData()
+    private var isLogin = false
 
     enum class NavType {
         LOGIN,
         DASHBOARD
     }
 
-    private var isLogin: Boolean = false
-    private var userId: Long = 0
-
-    private var currentUser: LiveData<Resource<User>> = userRepository.getLoggedIn()
-
-    var setting: LiveData<Resource<Setting>> = currentUser.switchMap {
-        isLogin = it.data!!.isLogin
-        userId = it.data!!.id
-        settingsRepository.getSettings(userId)
-    }
-
     init {
-        Timber.d("$TAG init -> $userId")
         receiveToken()
         viewModelScope.launch {
             delay(1000)
@@ -46,12 +37,15 @@ class SplashViewModel @Inject constructor(
     }
 
     fun receiveToken() {
-        setting = settingsRepository.getSettings(userId)
-        setting.map {
-            netParams.token = it.data?.apiKey ?: ""
-            Timber.d("$TAG setting.map -> $netParams")
+        setting = userRepository.getLoggedIn().switchMap {
+            settingsRepository.getSettings(it.data?.id ?: 0)
         }
-        Timber.d("$TAG receiveToken -> $netParams")
+
+        resultData.addSource(setting){
+            netParams.token = it.data?.apiKey?:""
+            Timber.d("$TAG setting changed")
+            resultData.value = it
+        }
     }
 
     fun navType() =
@@ -59,4 +53,6 @@ class SplashViewModel @Inject constructor(
             NavType.DASHBOARD
         else
             NavType.LOGIN
+
+    fun getSettings() = resultData
 }
