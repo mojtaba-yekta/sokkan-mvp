@@ -6,5 +6,5 @@ import retrofit2.http.Query
 
 interface UserService {
     @POST("/api/v1/user/registermobile")
-    fun register(@Query("mobile") mobile: String): Response<ReturnNet<Any>>
+    suspend fun register(@Query("mobile") mobile: String): Response<ReturnNet<Any>>
 }

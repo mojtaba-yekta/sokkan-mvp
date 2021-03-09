@@ -4,5 +4,5 @@
     <string name="cellphone">شماره تلفن همراه</string>
     <string name="send_verify_code">ارسال کد تایید</string>
     <string name="error_get_api">بروز خطا هنگام اتصال به اینترنت</string>
-    <string name="retry">تلاش مجدد</string>
+    <string name="retrya_ction">تلاش مجدد</string>
 </resources>

@@ -14,6 +14,7 @@ import com.negahpay.sokkan.R
 import com.negahpay.sokkan.databinding.FragmentSplashBinding
 import com.negahpay.sokkan.framework.SplashViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import timber.log.Timber
 
 @AndroidEntryPoint
 class SplashFragment : Fragment() {
@@ -40,6 +41,7 @@ class SplashFragment : Fragment() {
         viewModel.setting.observe(viewLifecycleOwner, {
             when (it.status) {
                 Resource.Status.ERROR -> {
+                    Timber.d("splash - viewModel.setting.observe - $it")
                     error()
                 }
                 Resource.Status.LOADING -> {
@@ -62,8 +64,8 @@ class SplashFragment : Fragment() {
 
     private fun error() {
         Snackbar.make(binding.root, R.string.error_get_api, Snackbar.LENGTH_LONG)
-            .setAction(R.string.retry) {
-                viewModel.recieveToken()
+            .setAction(R.string.retrya_ction) {
+                viewModel.receiveToken()
             }
             .show()
     }
