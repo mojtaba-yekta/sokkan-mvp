@@ -1,5 +1,6 @@
 package com.negahpay.sokkan.framework.db
 
+import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
@@ -12,7 +13,7 @@ interface UserDao {
     suspend fun add(userEntity: UserEntity)
 
     @Query("SELECT * FROM user WHERE is_login = 1 LIMIT 1")
-    suspend fun getLoggedIn(): UserEntity?
+    fun getLoggedIn(): LiveData<UserEntity?>
 
     @Delete
     suspend fun remove(userEntity: UserEntity)

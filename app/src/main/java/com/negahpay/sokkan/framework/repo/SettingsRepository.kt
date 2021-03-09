@@ -1,5 +1,7 @@
 package com.negahpay.sokkan.framework.repo
 
+import androidx.lifecycle.map
+import com.negahpay.core.data.Setting
 import com.negahpay.sokkan.framework.db.SettingEntity
 import com.negahpay.sokkan.framework.db.SettingsDao
 import com.negahpay.sokkan.framework.net.SettingsRemoteDataSource
@@ -11,7 +13,7 @@ class SettingsRepository @Inject constructor(
     private val db: SettingsDao
 ) {
     fun getSettings(userId: Long) = performGetOperation(
-        databaseQuery = { db.get(userId) },
+        databaseQuery = { db.get(userId).map { it?.toSetting() ?: Setting() } },
         networkCall = { remote.getApiKey() },
         saveCallResult = {
             if (it.returnCode == 2001) {

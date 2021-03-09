@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.Navigation
 import com.google.android.material.snackbar.Snackbar
+import com.negahpay.core.utils.Resource
 import com.negahpay.sokkan.R
 import com.negahpay.sokkan.databinding.FragmentSplashBinding
 import com.negahpay.sokkan.framework.SplashViewModel
@@ -17,7 +18,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class SplashFragment : Fragment() {
     private val viewModel: SplashViewModel by viewModels()
-    private var _binding: FragmentSplashBinding?=null
+    private var _binding: FragmentSplashBinding? = null
     private val binding get() = _binding!!
 
     override fun onCreateView(
@@ -36,27 +37,33 @@ class SplashFragment : Fragment() {
     }
 
     private fun observers() {
-        viewModel.hasApiKey.observe(viewLifecycleOwner, {
-            if (it) {
-                if (viewModel.currentUser.isLogin) {
-                    Navigation.findNavController(binding.root).navigate(R.id.splash_to_dashboard)
-                } else {
-                    Navigation.findNavController(binding.root).navigate(R.id.splash_to_login)
+        viewModel.setting.observe(viewLifecycleOwner, {
+            when (it.status) {
+                Resource.Status.ERROR -> {
+                    error()
                 }
-            }
-        })
-
-        viewModel.errorGettingApiKey.observe(viewLifecycleOwner, {
-            if (it) {
-                showError()
+                Resource.Status.LOADING -> {
+                }
+                Resource.Status.SUCCESS -> {
+                    when (viewModel.navType()) {
+                        SplashViewModel.NavType.LOGIN ->
+                            Navigation
+                                .findNavController(binding.root)
+                                .navigate(R.id.splash_to_login)
+                        SplashViewModel.NavType.DASHBOARD ->
+                            Navigation
+                                .findNavController(binding.root)
+                                .navigate(R.id.splash_to_dashboard)
+                    }
+                }
             }
         })
     }
 
-    private fun showError() {
-        Snackbar.make(binding.root,R.string.error_get_api,Snackbar.LENGTH_LONG)
-            .setAction(R.string.retry){
-                viewModel.receiveApiKey()
+    private fun error() {
+        Snackbar.make(binding.root, R.string.error_get_api, Snackbar.LENGTH_LONG)
+            .setAction(R.string.retry) {
+                viewModel.recieveToken()
             }
             .show()
     }

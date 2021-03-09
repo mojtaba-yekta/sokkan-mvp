@@ -6,10 +6,12 @@ plugins {
     id "dagger.hilt.android.plugin"
 }
 
-def Base_URL = '"' + SokkanApiServiceBaseURL + '"' ?: '"base"'
+def BASE_URL = '"' + SokkanApiServiceBaseURL + '"' ?: '"base"'
+def API_KEY = '"' + SokkanApiKey + '"' ?: '"key"'
 
 android.buildTypes.each { type ->
-    type.buildConfigField 'String', 'Base_URL', SokkanApiServiceBaseURL
+    type.buildConfigField 'String', 'BASE_URL', SokkanApiServiceBaseURL
+    type.buildConfigField 'String', 'API_KEY', SokkanApiKey
 }
 
 android {

@@ -1,67 +1,51 @@
 package com.negahpay.sokkan.framework
 
-import android.app.Application
-import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.*
 import com.negahpay.core.data.Setting
-import com.negahpay.core.data.User
-import com.negahpay.core.usecases.*
-import com.negahpay.sokkan.BuildConfig
-import com.negahpay.sokkan.framework.di.ApplicationModule
-import com.negahpay.sokkan.framework.di.DaggerViewModelComponent
-import com.negahpay.sokkan.framework.di.NetworkModule
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
+import com.negahpay.core.utils.Resource
+import com.negahpay.sokkan.framework.net.NetParams
+import com.negahpay.sokkan.framework.repo.SettingsRepository
+import com.negahpay.sokkan.framework.repo.UserRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-class SplashViewModel(application: Application) : AndroidViewModel(application) {
-    private val coroutineScope = CoroutineScope(Dispatchers.IO)
+@HiltViewModel
+class SplashViewModel @Inject constructor(
+    private val settingsRepository: SettingsRepository,
+    private val userRepository: UserRepository,
+    private val netParams: NetParams
+) : ViewModel() {
 
-    @Inject
-    lateinit var useCases: UseCases
+    enum class NavType {
+        LOGIN,
+        DASHBOARD
+    }
 
-    @Inject
-    lateinit var serviceApi: ServiceApi
+    private var isLogin: Boolean = false
+    private var userId: Long = 0
 
-    lateinit var currentUser: User
-    val hasApiKey = MutableLiveData(false)
-    val errorGettingApiKey = MutableLiveData(false)
+    val currentUser = userRepository.getLoggedIn()
+    var setting: LiveData<Resource<Setting>> = currentUser.switchMap {
+        isLogin = it.data!!.isLogin
+        userId = it.data!!.id
+        settingsRepository.getSettings(userId)
+    }
 
     init {
-        DaggerViewModelComponent
-            .builder()
-            .applicationModule(ApplicationModule(application))
-            .networkModule(NetworkModule(BuildConfig.Base_URL))
-            .build()
-            .inject(this)
-
-        coroutineScope.launch {
+        viewModelScope.launch {
             delay(1000)
-            val user = useCases.getLoggedIn()
-            (user ?: User(0, "", false)).also { currentUser = it }
-            receiveApiKey()
         }
     }
 
-    fun receiveApiKey() {
-
-
-
-
-        //todo get api key from net
-        if (true) {
-            saveApiKey("test")
-        } else {
-            errorGettingApiKey.postValue(true)
-        }
+    fun recieveToken() {
+        setting = settingsRepository.getSettings(userId)
     }
 
-    private fun saveApiKey(key: String) {
-        coroutineScope.launch {
-            useCases.updateSetting(Setting(currentUser.id, key))
-            hasApiKey.postValue(true)
-        }
-    }
+    fun navType() =
+        if (isLogin)
+            NavType.DASHBOARD
+        else
+            NavType.LOGIN
 }
