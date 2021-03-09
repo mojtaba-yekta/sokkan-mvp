@@ -7,6 +7,7 @@ import retrofit2.http.Headers
 
 interface SettingsService {
     @Headers("APIKey: ${BuildConfig.API_KEY}")
-    @GET("/api/login")
+ //   @GET("/api/login")
+    @GET("/mojtaba-yekta/sokkan-mvp/login")
     suspend fun getApiKey(): Response<ReturnNet<Any>>
 }

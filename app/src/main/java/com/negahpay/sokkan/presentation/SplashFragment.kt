@@ -18,6 +18,7 @@ import timber.log.Timber
 
 @AndroidEntryPoint
 class SplashFragment : Fragment() {
+    private val TAG = SplashFragment::class.qualifiedName
     private val viewModel: SplashViewModel by viewModels()
     private var _binding: FragmentSplashBinding? = null
     private val binding get() = _binding!!
@@ -41,12 +42,14 @@ class SplashFragment : Fragment() {
         viewModel.setting.observe(viewLifecycleOwner, {
             when (it.status) {
                 Resource.Status.ERROR -> {
-                    Timber.d("splash - viewModel.setting.observe - $it")
+                    Timber.d("$TAG Resource.Status.ERROR -> $it")
                     error()
                 }
                 Resource.Status.LOADING -> {
+                    Timber.d("$TAG Resource.Status.LOADING -> $it")
                 }
                 Resource.Status.SUCCESS -> {
+                    Timber.d("$TAG Resource.Status.SUCCESS -> $it")
                     when (viewModel.navType()) {
                         SplashViewModel.NavType.LOGIN ->
                             Navigation

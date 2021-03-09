@@ -19,6 +19,7 @@ class SplashViewModel @Inject constructor(
     private val userRepository: UserRepository,
     private val netParams: NetParams
 ) : ViewModel() {
+    private val TAG = SplashViewModel::class.qualifiedName
 
     enum class NavType {
         LOGIN,
@@ -37,7 +38,7 @@ class SplashViewModel @Inject constructor(
     }
 
     init {
-        Timber.d("splash - init - $userId")
+        Timber.d("$TAG init -> $userId")
         receiveToken()
         viewModelScope.launch {
             delay(1000)
@@ -48,7 +49,9 @@ class SplashViewModel @Inject constructor(
         setting = settingsRepository.getSettings(userId)
         setting.map {
             netParams.token = it.data?.apiKey ?: ""
+            Timber.d("$TAG setting.map -> $netParams")
         }
+        Timber.d("$TAG receiveToken -> $netParams")
     }
 
     fun navType() =
