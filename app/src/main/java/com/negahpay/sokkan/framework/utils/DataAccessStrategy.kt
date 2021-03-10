@@ -17,11 +17,9 @@ fun <T, A> performGetOperation(
         val source = databaseQuery.invoke().map { Resource.success(it) }
         emitSource(source)
 
-        Timber.d("performGetOperation $source")
 
         val response = networkCall.invoke()
         if (response.status == Resource.Status.SUCCESS) {
-            Timber.d("performGetOperation $response")
             saveCallResult(response.data!!)
         } else if (response.status == Resource.Status.ERROR) {
             emit(Resource.error(response.message!!))
@@ -47,7 +45,6 @@ fun <T, A> performNetFirstOperation(
 
         val response = networkCall.invoke()
         if (response.status == Resource.Status.SUCCESS) {
-            Timber.d("performNetFirstOperation $response")
             val source = saveCallResult(response.data!!).map { Resource.success(it) }
             emitSource(source)
         } else if (response.status == Resource.Status.ERROR) {

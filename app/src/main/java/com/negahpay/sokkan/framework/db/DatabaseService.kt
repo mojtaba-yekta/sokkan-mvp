@@ -7,14 +7,12 @@ import androidx.room.RoomDatabase
 
 @Database(
     entities = [
-        UserEntity::class,
-        SettingEntity::class
+        UserEntity::class
     ],
-    version = 1
+    version = 2
 )
 abstract class DatabaseService : RoomDatabase() {
     abstract fun userDao(): UserDao
-    abstract fun settingDao(): SettingsDao
 
     companion object {
         private const val DATABASE_NAME = "sokkan.db"

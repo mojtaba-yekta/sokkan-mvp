@@ -1,6 +1,7 @@
 package com.negahpay.sokkan
 
 import androidx.multidex.MultiDexApplication
+import com.orhanobut.hawk.Hawk
 import dagger.hilt.android.HiltAndroidApp
 import timber.log.Timber
 
@@ -11,5 +12,6 @@ class MainApplication : MultiDexApplication(){
         if(BuildConfig.DEBUG){
             Timber.plant(Timber.DebugTree())
         }
+        Hawk.init(this).build()
     }
 }

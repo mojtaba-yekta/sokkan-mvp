@@ -2,6 +2,7 @@ package com.negahpay.sokkan.framework.di
 
 import android.content.Context
 import com.negahpay.sokkan.framework.db.DatabaseService
+import com.negahpay.sokkan.framework.mem.SharedPrefService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -11,7 +12,7 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-object DbModule {
+object LocalModule {
     @Provides
     @Singleton
     fun provideDatabase(@ApplicationContext context: Context) =
@@ -19,11 +20,11 @@ object DbModule {
 
     @Provides
     @Singleton
-    fun provideSettingsDao(db: DatabaseService) =
-        db.settingDao()
+    fun provideUserDao(db: DatabaseService) =
+        db.userDao()
 
     @Provides
     @Singleton
-    fun provideUserDao(db: DatabaseService) =
-        db.userDao()
+    fun provideSharedPref() = SharedPrefService()
+
 }

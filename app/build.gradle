@@ -8,10 +8,12 @@ plugins {
 
 def BASE_URL = '"' + SokkanApiServiceBaseURL + '"' ?: '"base"'
 def API_KEY = '"' + SokkanApiKey + '"' ?: '"key"'
+def BASIC_AUTH = '"' + SokkanBasicAtuh + '"' ?: '"basic"'
 
 android.buildTypes.each { type ->
     type.buildConfigField 'String', 'BASE_URL', SokkanApiServiceBaseURL
     type.buildConfigField 'String', 'API_KEY', SokkanApiKey
+    type.buildConfigField 'String', 'BASIC_AUTH', SokkanBasicAtuh
 }
 
 android {
@@ -101,6 +103,8 @@ dependencies {
     implementation "androidx.multidex:multidex:$multidex_version"
 
     implementation "com.jakewharton.timber:timber:4.7.1"
+
+    implementation "com.orhanobut:hawk:2.0.1"
 
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'

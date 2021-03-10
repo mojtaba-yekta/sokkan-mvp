@@ -12,5 +12,5 @@ data class ReturnNet<T>(
     @Json(name = "returnAffectedObject")
     val returnAffectedObject: T?,
     @Json(name = "returnvalue")
-    val returnValue: String
+    val returnValue: String?
 )

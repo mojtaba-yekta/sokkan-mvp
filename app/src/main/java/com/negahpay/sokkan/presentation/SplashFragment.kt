@@ -12,15 +12,13 @@ import com.google.android.material.snackbar.Snackbar
 import com.negahpay.core.utils.Resource
 import com.negahpay.sokkan.R
 import com.negahpay.sokkan.databinding.FragmentSplashBinding
-import com.negahpay.sokkan.framework.SplashViewModel
+import com.negahpay.sokkan.framework.viewmodels.SplashViewModel
 import com.negahpay.sokkan.framework.net.NetParams
 import dagger.hilt.android.AndroidEntryPoint
-import timber.log.Timber
 import javax.inject.Inject
 
 @AndroidEntryPoint
 class SplashFragment : Fragment() {
-    private val TAG = SplashFragment::class.qualifiedName
     private val viewModel: SplashViewModel by viewModels()
     private var _binding: FragmentSplashBinding? = null
     private val binding get() = _binding!!
@@ -44,18 +42,14 @@ class SplashFragment : Fragment() {
     }
 
     private fun observers() {
-        viewModel.getSettings().observe(viewLifecycleOwner, {
-            Timber.d("$TAG setting.observe -> ${netParams.token}")
+        viewModel.getToken().observe(viewLifecycleOwner, {
             when (it.status) {
                 Resource.Status.ERROR -> {
-                    Timber.d("$TAG Resource.Status.ERROR -> $it")
                     error()
                 }
                 Resource.Status.LOADING -> {
-                    Timber.d("$TAG Resource.Status.LOADING -> $it")
                 }
                 Resource.Status.SUCCESS -> {
-                    Timber.d("$TAG Resource.Status.SUCCESS -> $it")
                     when (viewModel.navType()) {
                         SplashViewModel.NavType.LOGIN ->
                             Navigation

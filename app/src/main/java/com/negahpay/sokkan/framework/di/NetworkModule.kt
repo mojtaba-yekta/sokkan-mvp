@@ -30,7 +30,9 @@ object NetworkModule {
 
     @Singleton
     @Provides
-    fun provideRetrofit(okHttpClient: OkHttpClient, moshi: Moshi, netParams: NetParams) =
+    fun provideRetrofit(
+        okHttpClient: OkHttpClient, moshi: Moshi, netParams: NetParams
+    ): Retrofit =
         Retrofit
             .Builder()
             .baseUrl(netParams.baseUrl)
@@ -67,22 +69,10 @@ object NetworkModule {
     }
 
     @Provides
-    @Singleton
-    fun provideSettingsService(retrofit: Retrofit) =
-        retrofit.create(SettingsService::class.java)
+    fun provideUserService(retrofit: Retrofit): IUserService =
+        retrofit.create(IUserService::class.java)
 
     @Provides
-    @Singleton
-    fun provideSettingsRemoteDataSource(settingsService: SettingsService) =
-        SettingsRemoteDataSource(settingsService)
-
-    @Provides
-    @Singleton
-    fun provideUserService(retrofit: Retrofit) =
-        retrofit.create(UserService::class.java)
-
-    @Provides
-    @Singleton
-    fun provideUserRemoteDataSource(userService: UserService) =
-        UserRemoteDataSource(userService)
+    fun provideTokenService(retrofit: Retrofit): ITokenService =
+        retrofit.create(ITokenService::class.java)
 }
