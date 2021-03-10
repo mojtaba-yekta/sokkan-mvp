@@ -13,18 +13,13 @@ import com.negahpay.core.utils.Resource
 import com.negahpay.sokkan.R
 import com.negahpay.sokkan.databinding.FragmentSplashBinding
 import com.negahpay.sokkan.framework.viewmodels.SplashViewModel
-import com.negahpay.sokkan.framework.net.NetParams
 import dagger.hilt.android.AndroidEntryPoint
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class SplashFragment : Fragment() {
     private val viewModel: SplashViewModel by viewModels()
     private var _binding: FragmentSplashBinding? = null
     private val binding get() = _binding!!
-
-    @Inject
-    lateinit var netParams:NetParams
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -67,7 +62,7 @@ class SplashFragment : Fragment() {
 
     private fun error() {
         Snackbar.make(binding.root, R.string.error_get_api, Snackbar.LENGTH_LONG)
-            .setAction(R.string.retrya_ction) {
+            .setAction(R.string.retry_action) {
                 viewModel.receiveToken()
             }
             .show()

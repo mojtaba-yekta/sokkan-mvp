@@ -50,7 +50,7 @@ object NetworkModule {
     @Provides
     @Singleton
     fun providesTokenInterceptor(netParams: NetParams): TokenInterceptor =
-        TokenInterceptor(netParams, netParams.token)
+        TokenInterceptor(netParams)
 
     @Provides
     @Singleton

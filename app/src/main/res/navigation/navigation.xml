@@ -22,12 +22,32 @@
         android:id="@+id/login"
         android:name="com.negahpay.sokkan.presentation.LoginFragment"
         android:label="login"
-        tools:layout="@layout/fragment_login" />
+        tools:layout="@layout/fragment_login">
+        <action
+            android:id="@+id/login_to_verify"
+            app:destination="@id/verify" />
+    </fragment>
 
     <fragment
         android:id="@+id/dashboard"
         android:name="com.negahpay.sokkan.presentation.DashboardFragment"
         android:label="dashboard"
         tools:layout="@layout/fragment_dashboard" />
+
+    <fragment
+        android:id="@+id/verify"
+        android:name="com.negahpay.sokkan.presentation.VerifyFragment"
+        android:label="verify"
+        tools:layout="@layout/fragment_verify">
+        <action
+            android:id="@+id/verify_to_dashboard"
+            app:destination="@id/dashboard" />
+
+        <argument
+            android:name="cellphone"
+            android:defaultValue=""
+            app:argType="string"
+            app:nullable="false" />
+    </fragment>
 
 </navigation>

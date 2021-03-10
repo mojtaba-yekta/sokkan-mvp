@@ -4,5 +4,9 @@
     <string name="cellphone">شماره تلفن همراه</string>
     <string name="send_verify_code">ارسال کد تایید</string>
     <string name="error_get_api">بروز خطا هنگام اتصال به اینترنت</string>
-    <string name="retrya_ction">تلاش مجدد</string>
+    <string name="retry_action">تلاش مجدد</string>
+    <string name="verify_code_sent">کد تایید به شماره همراه شما ارسال شد.</string>
+    <string name="login">ورود</string>
+    <string name="send_again">ارسال مجدد کد</string>
+    <string name="count_down">%1$d ثانیه تا فعال شدن ارسال مجدد</string>
 </resources>

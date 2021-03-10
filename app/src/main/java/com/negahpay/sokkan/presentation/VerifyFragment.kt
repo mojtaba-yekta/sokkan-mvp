@@ -1,60 +1,134 @@
 package com.negahpay.sokkan.presentation
 
+import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
+import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.viewModels
+import androidx.navigation.Navigation
+import com.google.android.material.snackbar.Snackbar
+import com.negahpay.core.utils.Resource
 import com.negahpay.sokkan.R
+import com.negahpay.sokkan.databinding.FragmentVerifyBinding
+import com.negahpay.sokkan.framework.viewmodels.VerifyViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [VerifyFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
+@AndroidEntryPoint
 class VerifyFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+    private var cellphone: String? = null
+    private val viewModel: VerifyViewModel by viewModels()
+    private var _binding: FragmentVerifyBinding? = null
+    private val binding get() = _binding!!
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
+            cellphone = it.getString("cellphone")
         }
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_verify, container, false)
+    ): View {
+        _binding = FragmentVerifyBinding.inflate(inflater, container, false)
+        (activity as AppCompatActivity?)?.supportActionBar?.hide()
+        return binding.root
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment VerifyFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            VerifyFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        binding.txtCellphone.text = cellphone
+        viewModel.cellphone = cellphone ?: ""
+        observers()
+        listeners()
+    }
+
+    private fun listeners() {
+        binding.btnLogin.setOnClickListener {
+            validate()
+        }
+
+        binding.txtPinEntry.setOnPinEnteredListener {
+            if (it.length == 4)
+                validate()
+        }
+
+        binding.txtCountDown.setOnClickListener {
+            sendAgain()
+        }
+    }
+
+    private fun observers() {
+        viewModel.getValidateState().observe(viewLifecycleOwner) {
+            when (it.status) {
+                Resource.Status.ERROR -> {
+                    error(it.message ?: getString(R.string.error_get_api))
+                    endLoading()
+                }
+                Resource.Status.LOADING -> {
+                    startLoading()
+                }
+                Resource.Status.SUCCESS -> {
+                    it.data.let { c ->
+                        if (c.isNullOrEmpty())
+                            error("null cellphone")
+                        else
+                            Navigation
+                                .findNavController(binding.root)
+                                .navigate(R.id.verify_to_dashboard)
+                    }
+                    endLoading()
                 }
             }
+        }
     }
+
+    private fun validate() {
+        hideKeyboard()
+        viewModel.validateCode(binding.txtPinEntry.text.toString())
+    }
+
+    private fun sendAgain() {
+        hideKeyboard()
+        viewModel.sendAgain()
+
+        binding.txtCountDown.isEnabled = false
+        viewModel.getCountDown().observe(viewLifecycleOwner) {
+            binding.txtCountDown.text = getString(R.string.count_down, it)
+            if (it <= 0) {
+                binding.txtCountDown.isEnabled = true
+                binding.txtCountDown.text = getString(R.string.send_again)
+            }
+        }
+
+        viewModel.getSendAgainLive().observe(viewLifecycleOwner){
+            //do nothing
+        }
+    }
+
+    private fun hideKeyboard() {
+        val imm: InputMethodManager =
+            context?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(binding.txtCellphone.windowToken, 0)
+    }
+
+    private fun error(message: String) {
+        Snackbar.make(binding.root, message, Snackbar.LENGTH_LONG).show()
+    }
+
+    private fun startLoading() {
+        binding.progress.visibility = View.VISIBLE
+        binding.btnLogin.visibility = View.GONE
+    }
+
+    private fun endLoading() {
+        binding.progress.visibility = View.GONE
+        binding.btnLogin.visibility = View.VISIBLE
+    }
+
 }

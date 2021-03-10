@@ -5,8 +5,7 @@ import okhttp3.Response
 import javax.inject.Inject
 
 class TokenInterceptor @Inject constructor(
-    private val netParams: NetParams,
-    private val token: String
+    private val netParams: NetParams
 ) : Interceptor {
     override fun intercept(chain: Interceptor.Chain): Response {
         val request = chain.request()
@@ -14,10 +13,10 @@ class TokenInterceptor @Inject constructor(
         val requestBuilder = request.newBuilder()
 
         if (request.header(netParams.apiKeyHeader) == null) {
-            if (token.isEmpty()) {
+            if (netParams.token.isEmpty()) {
                 throw RuntimeException("Session token should be defined for auth apis")
             } else {
-                requestBuilder.addHeader(netParams.tokenHeader, token)
+                requestBuilder.addHeader(netParams.tokenHeader, netParams.token)
             }
         }
 
