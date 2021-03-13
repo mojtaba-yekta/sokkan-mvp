@@ -9,5 +9,5 @@ interface ITokenService {
     @Headers("APIKey: ${BuildConfig.API_KEY}",
         "Authorization: ${BuildConfig.BASIC_AUTH}")
     @GET("/api/login")
-    suspend fun getToken(): Response<ReturnNet<Any>>
+    suspend fun getToken(): Response<ReturnNet<String>>
 }

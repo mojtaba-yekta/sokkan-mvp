@@ -6,10 +6,6 @@ plugins {
     id "dagger.hilt.android.plugin"
 }
 
-def BASE_URL = '"' + SokkanApiServiceBaseURL + '"' ?: '"base"'
-def API_KEY = '"' + SokkanApiKey + '"' ?: '"key"'
-def BASIC_AUTH = '"' + SokkanBasicAtuh + '"' ?: '"basic"'
-
 android.buildTypes.each { type ->
     type.buildConfigField 'String', 'BASE_URL', SokkanApiServiceBaseURL
     type.buildConfigField 'String', 'API_KEY', SokkanApiKey
@@ -24,8 +20,8 @@ android {
         applicationId "com.negahpay.sokkan"
         minSdkVersion 18
         targetSdkVersion 30
-        versionCode 1
-        versionName "1.0"
+        versionCode 2
+        versionName "1.0.0"
         multiDexEnabled true
         vectorDrawables.useSupportLibrary = true
 
@@ -110,6 +106,8 @@ dependencies {
     implementation ("com.alimuzaffar.lib:pinentryedittext:2.0.6") {
         exclude group: 'androidx.appcompat', module: 'appcompat'
     }
+
+    implementation "com.google.android:flexbox:2.0.1"
 
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'

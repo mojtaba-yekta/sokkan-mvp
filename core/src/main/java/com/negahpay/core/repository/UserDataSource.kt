@@ -7,4 +7,5 @@ interface UserDataSource {
     suspend fun registerUser(cellphone: String): Resource<String>
     suspend fun verifyUser(cellphone: String, verifyCode: String): Resource<String>
     suspend fun getLoggedIn(): User?
+    suspend fun logout()
 }

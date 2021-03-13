@@ -12,6 +12,6 @@
         android:layout_width="200dp"
         android:layout_height="200dp"
         android:scaleType="fitCenter"
-        app:srcCompat="@drawable/mainlogo"/>
+        app:srcCompat="@drawable/draw_mainlogo"/>
 
 </androidx.appcompat.widget.LinearLayoutCompat>

@@ -9,17 +9,17 @@ interface IUserService {
     @POST("/api/v1/user/registermobile")
     suspend fun register(
         @Query("mobile") mobile: String
-    ): Response<ReturnNet<Any>>
+    ): Response<ReturnNet<String>>
 
     @GET("/api/v1/user/mobileactivatecode")
     suspend fun mobileVerification(
         @Query("mobile") mobile: String
-    ): Response<ReturnNet<Any>>
+    ): Response<ReturnNet<String>>
 
     @POST("/api/v1/user/activate")
     suspend fun verify(
         @Query("mobile") mobile: String,
         @Query("activationcode") verifyCode: String
-    ): Response<ReturnNet<Any>>
+    ): Response<ReturnNet<String>>
 
 }

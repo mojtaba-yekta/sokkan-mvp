@@ -8,4 +8,5 @@ class UserRepository(private val dataSource: UserDataSource) {
     suspend fun verifyUser(cellphone: String, verifyCode: String) =
         dataSource.verifyUser(cellphone, verifyCode)
 
+    suspend fun logout() = dataSource.logout()
 }

@@ -1,17 +1,18 @@
 package com.negahpay.sokkan.framework.di
 
-import com.negahpay.core.repository.TokenDataSource
-import com.negahpay.core.repository.TokenRepository
-import com.negahpay.core.repository.UserDataSource
-import com.negahpay.core.repository.UserRepository
+import com.negahpay.core.repository.*
+import com.negahpay.core.usecases.billinquiry.ReceiveBill
 import com.negahpay.core.usecases.token.ReceiveToken
 import com.negahpay.core.usecases.user.*
 import com.negahpay.sokkan.framework.db.UserDao
 import com.negahpay.sokkan.framework.mem.SharedPrefService
+import com.negahpay.sokkan.framework.net.IBillService
 import com.negahpay.sokkan.framework.net.ITokenService
 import com.negahpay.sokkan.framework.net.IUserService
+import com.negahpay.sokkan.framework.repo.BillInquiryRepositoryImpl
 import com.negahpay.sokkan.framework.repo.TokenRepositoryImpl
 import com.negahpay.sokkan.framework.repo.UserRepositoryImpl
+import com.negahpay.sokkan.framework.utils.BillUseCases
 import com.negahpay.sokkan.framework.utils.TokenUseCases
 import com.negahpay.sokkan.framework.utils.UserUseCases
 import dagger.Module
@@ -41,7 +42,8 @@ object RepoModule {
         UserUseCases(
             GetLoggedIn(UserRepository(userRepo)),
             RegisterUser(UserRepository(userRepo)),
-            VerifyUser(UserRepository(userRepo))
+            VerifyUser(UserRepository(userRepo)),
+            Logout(UserRepository(userRepo))
         )
 
     @Provides
@@ -49,6 +51,20 @@ object RepoModule {
         tokenRepo: TokenDataSource
     ) =
         TokenUseCases(
-            ReceiveToken(TokenRepository(tokenRepo)),
+            ReceiveToken(TokenRepository(tokenRepo))
         )
+
+    @Provides
+    fun provideBillInquiryRepository(
+        billService: IBillService
+    ): BillInquiryDataSource = BillInquiryRepositoryImpl(billService)
+
+    @Provides
+    fun provideBillUseCases(
+        billInquiryRepo: BillInquiryDataSource
+    ) =
+        BillUseCases(
+            ReceiveBill(BillInquiryRepository(billInquiryRepo))
+        )
+
 }

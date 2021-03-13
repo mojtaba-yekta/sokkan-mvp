@@ -32,7 +32,14 @@
         android:id="@+id/dashboard"
         android:name="com.negahpay.sokkan.presentation.DashboardFragment"
         android:label="dashboard"
-        tools:layout="@layout/fragment_dashboard" />
+        tools:layout="@layout/fragment_dashboard">
+        <action
+            android:id="@+id/dashboard_to_login"
+            app:destination="@id/login" />
+        <action
+            android:id="@+id/dashboard_to_water_bill"
+            app:destination="@id/water_bill" />
+    </fragment>
 
     <fragment
         android:id="@+id/verify"
@@ -48,6 +55,32 @@
             android:defaultValue=""
             app:argType="string"
             app:nullable="false" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/water_bill"
+        android:name="com.negahpay.sokkan.presentation.WaterBillFragment"
+        android:label="@string/water"
+        tools:layout="@layout/fragment_water_bill">
+
+        <action
+            android:id="@+id/water_bill_to_bill_details"
+            app:destination="@id/bill_details" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/bill_details"
+        android:name="com.negahpay.sokkan.presentation.BillDetailsFragment"
+        android:label="@string/view_bill_details"
+        tools:layout="@layout/fragment_bill_details">
+
+        <argument
+            android:name="bill_id"
+            android:defaultValue=""
+            app:argType="string"
+            app:nullable="false" />
+
     </fragment>
 
 </navigation>

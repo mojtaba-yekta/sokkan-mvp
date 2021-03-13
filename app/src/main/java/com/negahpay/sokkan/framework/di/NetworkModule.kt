@@ -75,4 +75,8 @@ object NetworkModule {
     @Provides
     fun provideTokenService(retrofit: Retrofit): ITokenService =
         retrofit.create(ITokenService::class.java)
+
+    @Provides
+    fun provideBillService(retrofit: Retrofit): IBillService =
+        retrofit.create(IBillService::class.java)
 }

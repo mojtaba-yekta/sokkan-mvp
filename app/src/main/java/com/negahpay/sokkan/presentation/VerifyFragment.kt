@@ -36,7 +36,6 @@ class VerifyFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentVerifyBinding.inflate(inflater, container, false)
-        (activity as AppCompatActivity?)?.supportActionBar?.hide()
         return binding.root
     }
 
@@ -46,6 +45,16 @@ class VerifyFragment : Fragment() {
         viewModel.cellphone = cellphone ?: ""
         observers()
         listeners()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        (activity as AppCompatActivity?)?.supportActionBar?.hide()
+    }
+
+    override fun onStop() {
+        super.onStop()
+        (activity as AppCompatActivity?)?.supportActionBar?.show()
     }
 
     private fun listeners() {

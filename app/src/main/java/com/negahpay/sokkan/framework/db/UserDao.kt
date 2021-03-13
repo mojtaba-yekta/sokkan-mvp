@@ -19,4 +19,7 @@ interface UserDao {
 
     @Query("SELECT * FROM user WHERE cellphone = :cellphone")
     suspend fun get(cellphone: String): UserEntity?
+
+    @Query("UPDATE user SET is_login = 0")
+    suspend fun logout()
 }

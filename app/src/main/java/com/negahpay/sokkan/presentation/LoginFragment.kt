@@ -38,6 +38,16 @@ class LoginFragment : Fragment() {
         listeners()
     }
 
+    override fun onResume() {
+        super.onResume()
+        (activity as AppCompatActivity?)?.supportActionBar?.hide()
+    }
+
+    override fun onStop() {
+        super.onStop()
+        (activity as AppCompatActivity?)?.supportActionBar?.show()
+    }
+
     private fun listeners() {
         binding.btnSendVerifyCode.setOnClickListener {
             hideKeyboard()

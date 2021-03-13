@@ -12,8 +12,8 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:orientation="vertical"
-        android:paddingLeft="18dp"
-        android:paddingRight="18dp">
+        android:paddingEnd="18dp"
+        android:paddingStart="18dp">
 
         <androidx.appcompat.widget.AppCompatImageView
             android:layout_width="64dp"
@@ -38,6 +38,7 @@
             tools:text="09356789012" />
 
         <com.alimuzaffar.lib.pin.PinEntryEditText
+            android:layoutDirection="ltr"
             android:id="@+id/txt_pin_entry"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

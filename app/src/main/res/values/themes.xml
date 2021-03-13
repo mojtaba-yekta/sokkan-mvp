@@ -1,6 +1,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Theme.Sokkan" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+    <style name="Theme.Sokkan" parent="Theme.MaterialComponents.Light.NoActionBar">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/dark_blue</item>
         <item name="colorPrimaryVariant">@color/blue_grey</item>
@@ -14,10 +14,16 @@
         <!-- Customize your theme here. -->
         <item name="android:colorAccent" tools:targetApi="21">@color/red</item>
         <item name="fontFamily">@font/iransans_fanum</item>
+
     </style>
 
     <style name="Title" parent="Theme.Sokkan">
         <item name="android:textSize">20sp</item>
+    </style>
+    <style name="Title2" parent="Theme.Sokkan">
+        <item name="android:textSize">16sp</item>
+        <item name="fontFamily">@font/iransans_fanum_bold</item>
+        <item name="android:textColor">@color/dark_grey</item>
     </style>
 
     <style name="Button" parent="Theme.Sokkan">
@@ -31,5 +37,19 @@
     <style name="TextButton" parent="Theme.Sokkan">
         <item name="android:textColor">@color/blue_grey</item>
         <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="SmallText" parent="Theme.Sokkan">
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <style name="BottomNavigationViewTextStyle" parent="Theme.Sokkan">
+        <item name="fontFamily">@font/iransans_fanum</item>
+    </style>
+
+    <style name="ToolBarStyle" parent="ThemeOverlay.AppCompat.ActionBar">
+        <item name="android:textColorPrimary">@android:color/white</item>
+        <item name="android:textColorSecondary">@android:color/white</item>
+        <item name="actionMenuTextColor">@android:color/white</item>
     </style>
 </resources>

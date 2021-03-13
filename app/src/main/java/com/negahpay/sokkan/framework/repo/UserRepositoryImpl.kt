@@ -66,4 +66,7 @@ class UserRepositoryImpl(
     override suspend fun getLoggedIn(): User? =
         userDao.getLoggedIn()?.toUser()
 
+    override suspend fun logout() =
+        userDao.logout()
+
 }
