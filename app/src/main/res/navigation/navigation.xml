@@ -31,7 +31,7 @@
     <fragment
         android:id="@+id/dashboard"
         android:name="com.negahpay.sokkan.presentation.DashboardFragment"
-        android:label="dashboard"
+        android:label="@string/home"
         tools:layout="@layout/fragment_dashboard">
         <action
             android:id="@+id/dashboard_to_login"
@@ -39,6 +39,15 @@
         <action
             android:id="@+id/dashboard_to_water_bill"
             app:destination="@id/water_bill" />
+        <action
+            android:id="@+id/dashboard_to_irancell_bill"
+            app:destination="@id/irancell_bill" />
+        <action
+            android:id="@+id/dashboard_to_phone_bill"
+            app:destination="@id/phone_bill" />
+        <action
+            android:id="@+id/dashboard_to_electricity_bill"
+            app:destination="@id/electricity_bill" />
     </fragment>
 
     <fragment
@@ -70,6 +79,42 @@
     </fragment>
 
     <fragment
+        android:id="@+id/irancell_bill"
+        android:name="com.negahpay.sokkan.presentation.IrancellBillFragment"
+        android:label="@string/irancell"
+        tools:layout="@layout/fragment_irancell_bill">
+
+        <action
+            android:id="@+id/irancell_bill_to_bill_details"
+            app:destination="@id/bill_details" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/electricity_bill"
+        android:name="com.negahpay.sokkan.presentation.ElectricityBillFragment"
+        android:label="@string/electricity"
+        tools:layout="@layout/fragment_irancell_bill">
+
+        <action
+            android:id="@+id/electricity_bill_to_bill_details"
+            app:destination="@id/bill_details" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/phone_bill"
+        android:name="com.negahpay.sokkan.presentation.PhoneBillFragment"
+        android:label="@string/home_phone"
+        tools:layout="@layout/fragment_phone_bill">
+
+        <action
+            android:id="@+id/phone_bill_to_bill_details"
+            app:destination="@id/bill_details" />
+
+    </fragment>
+
+    <fragment
         android:id="@+id/bill_details"
         android:name="com.negahpay.sokkan.presentation.BillDetailsFragment"
         android:label="@string/view_bill_details"
@@ -77,6 +122,30 @@
 
         <argument
             android:name="bill_id"
+            android:defaultValue=""
+            app:argType="string"
+            app:nullable="false" />
+
+        <argument
+            android:name="bill_type"
+            android:defaultValue="Water"
+            app:argType="com.negahpay.core.data.BillType"
+            app:nullable="false" />
+
+        <argument
+            android:name="sender_unique_request_id"
+            android:defaultValue=""
+            app:argType="string"
+            app:nullable="false" />
+
+        <argument
+            android:name="requested_service_id"
+            android:defaultValue=""
+            app:argType="string"
+            app:nullable="false" />
+
+        <argument
+            android:name="trace_number"
             android:defaultValue=""
             app:argType="string"
             app:nullable="false" />

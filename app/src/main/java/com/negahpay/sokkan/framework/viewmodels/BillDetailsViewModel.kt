@@ -21,6 +21,10 @@ class BillDetailsViewModel @Inject constructor(
 ) : ViewModel() {
     private var cellphone = ""
     lateinit var billId: String
+    lateinit var senderUniqueRequestId: String
+    lateinit var requestedServiceId: String
+    lateinit var traceNumber: String
+
     private val resultData: MediatorLiveData<Resource<BillInquiry>> = MediatorLiveData()
     private val data: LiveData<Resource<BillInquiry>> = liveData(Dispatchers.IO) {
         emit(Resource.loading())
@@ -31,10 +35,12 @@ class BillDetailsViewModel @Inject constructor(
                 billUseCases.receiveBill(
                     BillInquiryParameter(
                         cellphone,
-                        "3",
-                        "3",
+                        senderUniqueRequestId,
+                        requestedServiceId,
                         billId,
-                        "1003"
+                        billId,
+                        billId,
+                        traceNumber
                     )
                 )
             )
@@ -55,7 +61,7 @@ class BillDetailsViewModel @Inject constructor(
             it?.let { u ->
                 cellphone = u.cellphone
 
-                resultData.addSource(data) {b->
+                resultData.addSource(data) { b ->
                     resultData.value = b
                 }
             }

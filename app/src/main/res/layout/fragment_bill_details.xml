@@ -18,7 +18,9 @@
             android:id="@+id/pnl_progress"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:gravity="center">
+            android:gravity="center"
+            android:paddingTop="150dp"
+            android:visibility="gone">
 
             <ProgressBar
                 android:layout_width="wrap_content"
@@ -34,15 +36,18 @@
             android:id="@+id/pnl_details"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:gravity="center">
 
             <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/bill_icon"
                 android:layout_width="150dp"
                 android:layout_height="150dp"
                 android:layout_marginTop="32dp"
                 app:srcCompat="@drawable/draw_water_org" />
 
             <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_marginTop="32dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layoutDirection="rtl">

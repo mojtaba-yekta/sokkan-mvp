@@ -48,6 +48,15 @@ class DashboardFragment : Fragment() {
         binding.pnlWater.setOnClickListener {
             Navigation.findNavController(binding.root).navigate(R.id.dashboard_to_water_bill)
         }
+        binding.pnlElectricity.setOnClickListener {
+            Navigation.findNavController(binding.root).navigate(R.id.dashboard_to_electricity_bill)
+        }
+        binding.pnlIct.setOnClickListener {
+            Navigation.findNavController(binding.root).navigate(R.id.dashboard_to_phone_bill)
+        }
+        binding.pnlIrancellBill.setOnClickListener {
+            Navigation.findNavController(binding.root).navigate(R.id.dashboard_to_irancell_bill)
+        }
     }
 
     private fun observers() {

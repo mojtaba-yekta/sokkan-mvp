@@ -5,22 +5,20 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.Navigation
 import com.negahpay.core.data.BillType
 import com.negahpay.sokkan.R
-import com.negahpay.sokkan.databinding.FragmentDashboardBinding
-import com.negahpay.sokkan.databinding.FragmentWaterBillBinding
+import com.negahpay.sokkan.databinding.FragmentIrancellBillBinding
 
-class WaterBillFragment : Fragment() {
-    private var _binding: FragmentWaterBillBinding? = null
+class IrancellBillFragment : Fragment() {
+    private var _binding: FragmentIrancellBillBinding? = null
     private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentWaterBillBinding.inflate(inflater, container, false)
+        _binding = FragmentIrancellBillBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -35,14 +33,14 @@ class WaterBillFragment : Fragment() {
             if (billId.isNotEmpty()) {
                 val bundle = Bundle().apply {
                     putString("bill_id", billId)
-                    putString("bill_type", BillType.Water.name)
-                    putString("sender_unique_request_id","3")
-                    putString("requested_service_id","3")
-                    putString("trace_number","1003")
+                    putString("bill_type", BillType.Irancell.name)
+                    putString("sender_unique_request_id","10")
+                    putString("requested_service_id","10")
+                    putString("trace_number","1002")
                 }
                 Navigation
                     .findNavController(binding.root)
-                    .navigate(R.id.water_bill_to_bill_details, bundle)
+                    .navigate(R.id.irancell_bill_to_bill_details, bundle)
             }
         }
     }

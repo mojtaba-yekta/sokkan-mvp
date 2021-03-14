@@ -13,7 +13,11 @@ data class BillInquiryParameterNet(
     @Json(name = "RequestedServiceID")
     val requestedServiceId: String,
     @Json(name = "BillID")
-    val billId: String,
+    val billId: String = "",
+    @Json(name = "FixedLineNumber")
+    val fixedLineNumber: String = "",
+    @Json(name = "MobileNumber")
+    val mobileNumber: String = "",
     @Json(name = "TraceNumber")
     val traceNumber: String
 ) {
@@ -24,6 +28,8 @@ data class BillInquiryParameterNet(
                 param.senderUniqueRequestId,
                 param.requestedServiceId,
                 param.billId,
+                param.fixedLineNumber,
+                param.mobileNumber,
                 param.traceNumber
             )
     }

@@ -20,7 +20,7 @@ android {
         applicationId "com.negahpay.sokkan"
         minSdkVersion 18
         targetSdkVersion 30
-        versionCode 2
+        versionCode 3
         versionName "1.0.0"
         multiDexEnabled true
         vectorDrawables.useSupportLibrary = true

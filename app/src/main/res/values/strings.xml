@@ -25,8 +25,17 @@
     <string name="rightel">رایتل</string>
     <string name="talia">تالیا</string>
     <string name="add_water_bill_id">برای مشاهده قبض آب، شناسه قبض آب را وارد نمایید.</string>
+    <string name="add_electricity_bill_id">برای مشاهده قبض برق، شناسه قبض برق را وارد نمایید.</string>
+    <string name="add_irancell_bill_id">برای مشاهده قبض ایرانسل، شماره موبایل ایرانسل خود را وارد نمایید.</string>
+    <string name="add_phone_bill_id">برای مشاهده قبض تلفن ثابت، شماره تلفن خود را وارد نمایید.</string>
     <string name="water_bill_id">شناسه قبض آب</string>
+    <string name="electricity_bill_id">شناسه قبض برق</string>
+    <string name="irancell_bill_id">شماره موبایل ایرانسل</string>
+    <string name="phone_bill_id">شماره تلفن ثابت</string>
     <string name="water_query">استعلام قبض آب</string>
+    <string name="electricity_query">استعلام قبض برق</string>
+    <string name="irancell_query">استعلام قبض ایرانسل</string>
+    <string name="phone_query">استعلام قبض تلفن</string>
     <string name="view_bill_details">مشاهده جزئیات قبض</string>
     <string name="bill_id">شناسه قبض</string>
     <string name="pay_id">شناسه پرداخت</string>
